@@ -234,6 +234,16 @@ module CollectiveIdea #:nodoc:
       #   category.self_and_descendants.count
       #   category.ancestors.find(:all, :conditions => "name like '%foo%'")
       module InstanceMethods
+        # create a child
+        def create_child(*args, &block)
+          self.class.base_class.transaction do
+            node = self.class.new(*args, &block)
+            node.save
+            node.move_to_child_of(self)
+            node
+          end
+        end
+        
         # Value of the parent column
         def parent_id
           self[parent_column_name]
