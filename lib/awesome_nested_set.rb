@@ -238,7 +238,7 @@ module CollectiveIdea #:nodoc:
         def create_child(*args, &block)
           self.class.base_class.transaction do
             node = self.class.new(*args, &block)
-            node.save
+            node.save!
             node.move_to_child_of(self)
             node
           end
