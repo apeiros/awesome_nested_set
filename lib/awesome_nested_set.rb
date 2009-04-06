@@ -273,6 +273,11 @@ module CollectiveIdea #:nodoc:
           !parent_id.nil?
         end
 
+        # Returns the number of descendant nodes
+        def descendants_size
+          (right-left)>>1
+        end
+
         # order by left column
         def <=>(x)
           left <=> x.left
